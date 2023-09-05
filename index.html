@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>stlite app</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.34.0/build/stlite.css"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.34.0/build/stlite.js"></script>
+    <script>
+      // Get snippet id from url query, #snippet_id
+      let snippet_id = window.location.hash.substring(1);
+      fetch(`https://snippetdb-1-z2870453.deta.app/s/${snippet_id}`)
+        .then((response) => {
+          console.log(response);
+          return response.json();
+        })
+        .then((data) => {
+          stlite.mount(data.value, document.getElementById("root"));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    </script>
+  </body>
+</html>
